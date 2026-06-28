@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CineForo</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ── HEADER ─────────────────────────────────────────── -->
+  <header class="site-header">
+    <div class="header-inner">
+      <span class="logo">🎞 CineForo</span>
+      <div class="header-auth">
+        <!-- Se muestra cuando NO hay sesión -->
+        <button class="btn-login" id="btnLogin">
+          Entrar con Google
+        </button>
+        <!-- Se muestra cuando SÍ hay sesión -->
+        <div class="user-info hidden" id="userInfo">
+          <img class="user-avatar" id="userAvatar" src="" alt="" />
+          <span class="user-nombre" id="userNombre"></span>
+          <button class="btn-logout" id="btnLogout">Salir</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── HERO ───────────────────────────────────────────── -->
+  <section class="hero">
+    <h1 class="hero-title">Recomendaciones de cine, <em>de verdad</em></h1>
+    <p class="hero-sub">Publicá lo que viste, leé lo que otros recomiendan, debatí.</p>
+  </section>
+
+  <!-- ── FORMULARIO NUEVO POST (solo visible si hay sesión) -->
+  <section class="seccion-nuevo hidden" id="seccionNuevo">
+    <div class="contenedor">
+      <div class="form-post">
+        <h2 class="form-titulo">¿Qué estás recomendando?</h2>
+
+        <!-- Buscador de película -->
+        <div class="campo">
+          <label class="label" for="inputPelicula">Película</label>
+          <div class="search-bar-mini">
+            <input type="text" id="inputPelicula" class="input" placeholder="Buscá por título…" autocomplete="off" />
+            <button class="btn-buscar-peli" id="btnBuscarPeli">Buscar</button>
+          </div>
+          <!-- Resultado de la búsqueda -->
+          <div class="peli-seleccionada hidden" id="peliSeleccionada">
+            <img class="peli-thumb" id="peliThumb" src="" alt="" />
+            <div class="peli-datos">
+              <p class="peli-titulo-sel" id="peliTituloSel"></p>
+              <p class="peli-anio-sel"  id="peliAnioSel"></p>
+            </div>
+            <button class="btn-cambiar" id="btnCambiarPeli">Cambiar</button>
+          </div>
+        </div>
+
+        <!-- Reseña -->
+        <div class="campo">
+          <label class="label" for="inputReseña">Tu recomendación</label>
+          <textarea id="inputReseña" class="textarea" rows="4"
+            placeholder="¿Por qué la recomendás? ¿Qué te pareció?"></textarea>
+        </div>
+
+        <!-- Puntaje -->
+        <div class="campo campo-inline">
+          <label class="label" for="inputPuntaje">Tu puntaje</label>
+          <div class="puntaje-wrap">
+            <input type="range" id="inputPuntaje" min="1" max="10" value="7" class="slider" />
+            <span class="puntaje-valor" id="puntajeValor">7 / 10</span>
+          </div>
+        </div>
+
+        <button class="btn-publicar" id="btnPublicar">Publicar recomendación</button>
+        <p class="form-error hidden" id="formError"></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FEED DE POSTS ──────────────────────────────────── -->
+  <main class="contenedor feed-wrap">
+
+    <div class="feed-header">
+      <h2 class="feed-titulo">Lo que se está recomendando</h2>
+      <div class="filtros">
+        <button class="filtro activo" data-filtro="recientes">Recientes</button>
+        <button class="filtro" data-filtro="likes">Más likes</button>
+      </div>
+    </div>
+
+    <p class="estado-msg" id="estadoMsg">Cargando recomendaciones…</p>
+    <div class="feed" id="feed"></div>
+
+  </main>
+
+  <!-- ── MODAL DE RESPUESTAS ────────────────────────────── -->
+  <div class="modal hidden" id="modal" role="dialog" aria-modal="true">
+    <div class="modal-contenido">
+      <div class="modal-header">
+        <h3 class="modal-titulo-post" id="modalTituloPost"></h3>
+        <button class="modal-cerrar" id="btnCerrarModal">✕</button>
+      </div>
+      <div class="modal-resenia" id="modalResenia"></div>
+
+      <div class="modal-respuestas" id="modalRespuestas"></div>
+
+      <div class="modal-form-respuesta hidden" id="modalFormRespuesta">
+        <textarea id="inputRespuesta" class="textarea textarea-sm"
+          rows="3" placeholder="Escribí tu respuesta…"></textarea>
+        <button class="btn-publicar btn-sm" id="btnEnviarRespuesta">Responder</button>
+      </div>
+      <p class="modal-login-aviso hidden" id="modalLoginAviso">
+        <button class="link-btn" id="btnLoginModal">Entrá con Google</button> para responder.
+      </p>
+    </div>
+  </div>
+  <div class="overlay hidden" id="overlay"></div>
+
+  <!-- ── TOAST ─────────────────────────────────────────── -->
+  <div class="toast hidden" id="toast"></div>
+
+  <!-- Firebase (módulos ES) -->
+  <script type="module" src="script.js"></script>
+</body>
+</html>
